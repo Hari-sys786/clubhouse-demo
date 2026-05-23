@@ -15,15 +15,9 @@ class RoomCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFF1A1A2E),
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          border: Border.all(color: const Color(0xFF2A2A40), width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,8 +28,8 @@ class RoomCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: Colors.grey[500],
-                letterSpacing: 0.5,
+                color: Colors.white.withOpacity(0.35),
+                letterSpacing: 0.8,
               ),
             ),
             const SizedBox(height: 6),
@@ -47,6 +41,7 @@ class RoomCard extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 height: 1.3,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 14),
@@ -67,9 +62,13 @@ class RoomCard extends StatelessWidget {
                           width: 36,
                           height: 36,
                           decoration: BoxDecoration(
-                            color: _avatarColor(index),
+                            gradient: LinearGradient(
+                              colors: _avatarGradient(index),
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),
+                            border: Border.all(color: const Color(0xFF1A1A2E), width: 2),
                           ),
                           child: Center(
                             child: Text(
@@ -100,7 +99,7 @@ class RoomCard extends StatelessWidget {
                             .join(' · '),
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.grey[700],
+                          color: Colors.white.withOpacity(0.6),
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -111,19 +110,19 @@ class RoomCard extends StatelessWidget {
                             '${room.speakers.length}',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[500],
+                              color: Colors.white.withOpacity(0.4),
                             ),
                           ),
-                          Icon(Icons.mic, size: 12, color: Colors.grey[500]),
+                          Icon(Icons.mic, size: 12, color: Colors.white.withOpacity(0.4)),
                           const SizedBox(width: 8),
                           Text(
-                            '${_formatCount(room.listenerCount)}',
+                            _formatCount(room.listenerCount),
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[500],
+                              color: Colors.white.withOpacity(0.4),
                             ),
                           ),
-                          Icon(Icons.person, size: 12, color: Colors.grey[500]),
+                          Icon(Icons.person, size: 12, color: Colors.white.withOpacity(0.4)),
                         ],
                       ),
                     ],
@@ -137,14 +136,14 @@ class RoomCard extends StatelessWidget {
     );
   }
 
-  Color _avatarColor(int index) {
-    final colors = [
-      const Color(0xFF6C5CE7),
-      const Color(0xFFE17055),
-      const Color(0xFF00B894),
-      const Color(0xFFFDAA5E),
+  List<Color> _avatarGradient(int index) {
+    final gradients = [
+      [const Color(0xFF8B5CF6), const Color(0xFF6D28D9)],
+      [const Color(0xFFEF4444), const Color(0xFFDC2626)],
+      [const Color(0xFF22D3EE), const Color(0xFF0891B2)],
+      [const Color(0xFFF59E0B), const Color(0xFFD97706)],
     ];
-    return colors[index % colors.length];
+    return gradients[index % gradients.length];
   }
 
   String _formatCount(int count) {

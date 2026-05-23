@@ -18,7 +18,11 @@ class SpeakerTile extends StatelessWidget {
               width: 72,
               height: 72,
               decoration: BoxDecoration(
-                color: _avatarColor(index),
+                gradient: LinearGradient(
+                  colors: _avatarGradient(index),
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -37,16 +41,11 @@ class SpeakerTile extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color(0xFF1A1A2E),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
-                    ),
-                  ],
+                  border: Border.all(color: const Color(0xFF2A2A40), width: 1),
                 ),
-                child: const Icon(Icons.mic_off, size: 14, color: Colors.red),
+                child: const Icon(Icons.mic_off, size: 14, color: Color(0xFFEF4444)),
               ),
           ],
         ),
@@ -64,6 +63,7 @@ class SpeakerTile extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
           ],
@@ -72,14 +72,14 @@ class SpeakerTile extends StatelessWidget {
     );
   }
 
-  Color _avatarColor(int index) {
-    final colors = [
-      const Color(0xFF6C5CE7),
-      const Color(0xFFE17055),
-      const Color(0xFF00B894),
-      const Color(0xFFFDAA5E),
-      const Color(0xFF0984E3),
+  List<Color> _avatarGradient(int index) {
+    final gradients = [
+      [const Color(0xFF8B5CF6), const Color(0xFF6D28D9)],
+      [const Color(0xFFEF4444), const Color(0xFFDC2626)],
+      [const Color(0xFF22D3EE), const Color(0xFF0891B2)],
+      [const Color(0xFFF59E0B), const Color(0xFFD97706)],
+      [const Color(0xFF3B82F6), const Color(0xFF2563EB)],
     ];
-    return colors[index % colors.length];
+    return gradients[index % gradients.length];
   }
 }

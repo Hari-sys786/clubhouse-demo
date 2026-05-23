@@ -18,7 +18,7 @@ class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2EFE5),
+      backgroundColor: const Color(0xFF0D0D0D),
       body: SafeArea(
         child: Column(
           children: [
@@ -29,11 +29,11 @@ class _RoomScreenState extends State<RoomScreen> {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Icon(Icons.keyboard_arrow_down, size: 28),
-                        SizedBox(width: 4),
-                        Text('All rooms', style: TextStyle(fontSize: 15)),
+                        const Icon(Icons.keyboard_arrow_down, size: 28, color: Colors.white70),
+                        const SizedBox(width: 4),
+                        Text('All rooms', style: TextStyle(fontSize: 15, color: Colors.white.withOpacity(0.7))),
                       ],
                     ),
                   ),
@@ -41,14 +41,14 @@ class _RoomScreenState extends State<RoomScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
+                      color: const Color(0xFFEF4444).withOpacity(0.15),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Row(
                       children: [
-                        Icon(Icons.circle, color: Colors.red, size: 8),
+                        Icon(Icons.circle, color: Color(0xFFEF4444), size: 8),
                         SizedBox(width: 4),
-                        Text('LIVE', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12)),
+                        Text('LIVE', style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.bold, fontSize: 12)),
                       ],
                     ),
                   ),
@@ -61,47 +61,44 @@ class _RoomScreenState extends State<RoomScreen> {
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFF1A1A2E),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
                 ),
                 child: ListView(
                   padding: const EdgeInsets.all(20),
                   children: [
-                    // Club name
                     Text(
                       widget.room.club.toUpperCase(),
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey[500],
-                        letterSpacing: 0.5,
+                        color: Colors.white.withOpacity(0.35),
+                        letterSpacing: 0.8,
                       ),
                     ),
                     const SizedBox(height: 6),
 
-                    // Room title
                     Text(
                       widget.room.title,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                         height: 1.3,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 24),
 
-                    // Speakers section
-                    const Text(
+                    Text(
                       'Speakers',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                        color: Colors.white.withOpacity(0.4),
                       ),
                     ),
                     const SizedBox(height: 12),
 
-                    // Speaker grid
                     Wrap(
                       spacing: 20,
                       runSpacing: 20,
@@ -115,35 +112,33 @@ class _RoomScreenState extends State<RoomScreen> {
                     ),
 
                     const SizedBox(height: 28),
-                    Divider(color: Colors.grey[200]),
+                    Divider(color: Colors.white.withOpacity(0.1)),
                     const SizedBox(height: 16),
 
-                    // Listeners section
                     Text(
                       'Listeners (${widget.room.listenerCount})',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                        color: Colors.white.withOpacity(0.4),
                       ),
                     ),
                     const SizedBox(height: 12),
 
-                    // Mock listener avatars
                     Wrap(
                       spacing: 12,
                       runSpacing: 12,
                       children: List.generate(8, (i) {
                         final names = ['Sam', 'Alex', 'Jordan', 'Riley', 'Casey', 'Morgan', 'Taylor', 'Avery'];
                         final colors = [
-                          Colors.blueGrey,
-                          Colors.teal,
-                          Colors.deepOrange,
-                          Colors.indigo,
-                          Colors.brown,
-                          Colors.cyan,
-                          Colors.pink,
-                          Colors.amber,
+                          [const Color(0xFF475569), const Color(0xFF334155)],
+                          [const Color(0xFF0D9488), const Color(0xFF0F766E)],
+                          [const Color(0xFFEA580C), const Color(0xFFC2410C)],
+                          [const Color(0xFF4F46E5), const Color(0xFF4338CA)],
+                          [const Color(0xFF78716C), const Color(0xFF57534E)],
+                          [const Color(0xFF0891B2), const Color(0xFF0E7490)],
+                          [const Color(0xFFDB2777), const Color(0xFFBE185D)],
+                          [const Color(0xFFD97706), const Color(0xFFB45309)],
                         ];
                         return Column(
                           children: [
@@ -151,7 +146,11 @@ class _RoomScreenState extends State<RoomScreen> {
                               width: 52,
                               height: 52,
                               decoration: BoxDecoration(
-                                color: colors[i],
+                                gradient: LinearGradient(
+                                  colors: colors[i],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
@@ -164,7 +163,7 @@ class _RoomScreenState extends State<RoomScreen> {
                             const SizedBox(height: 4),
                             Text(
                               names[i],
-                              style: const TextStyle(fontSize: 11, color: Colors.grey),
+                              style: TextStyle(fontSize: 11, color: Colors.white.withOpacity(0.4)),
                             ),
                           ],
                         );
@@ -178,22 +177,21 @@ class _RoomScreenState extends State<RoomScreen> {
             // Bottom bar
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              color: Colors.white,
+              color: const Color(0xFF1A1A2E),
               child: Row(
                 children: [
-                  // Leave button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: const Color(0xFF2A2A40),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
                         '✌️ Leave quietly',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Color(0xFFEF4444),
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -202,7 +200,6 @@ class _RoomScreenState extends State<RoomScreen> {
                   ),
                   const Spacer(),
 
-                  // Raise hand
                   GestureDetector(
                     onTap: () {
                       setState(() => _handRaised = !_handRaised);
@@ -210,6 +207,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         SnackBar(
                           content: Text(_handRaised ? '✋ Hand raised!' : 'Hand lowered'),
                           behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF1A1A2E),
                           duration: const Duration(seconds: 1),
                         ),
                       );
@@ -218,31 +216,30 @@ class _RoomScreenState extends State<RoomScreen> {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: _handRaised ? const Color(0xFF6C5CE7).withOpacity(0.1) : Colors.grey[200],
+                        color: _handRaised ? const Color(0xFF8B5CF6).withOpacity(0.2) : const Color(0xFF2A2A40),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.back_hand,
-                        color: _handRaised ? const Color(0xFF6C5CE7) : Colors.grey[600],
+                        color: _handRaised ? const Color(0xFF8B5CF6) : Colors.white38,
                         size: 20,
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
 
-                  // Mute/unmute
                   GestureDetector(
                     onTap: () => setState(() => _isMuted = !_isMuted),
                     child: Container(
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: _isMuted ? Colors.red.withOpacity(0.1) : const Color(0xFF5DB075).withOpacity(0.1),
+                        color: _isMuted ? const Color(0xFFEF4444).withOpacity(0.15) : const Color(0xFF22C55E).withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         _isMuted ? Icons.mic_off : Icons.mic,
-                        color: _isMuted ? Colors.red : const Color(0xFF5DB075),
+                        color: _isMuted ? const Color(0xFFEF4444) : const Color(0xFF22C55E),
                         size: 22,
                       ),
                     ),
